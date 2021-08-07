@@ -15,6 +15,6 @@ app.use(routes);
 app.listen(3333);
 
 // (async () => {
-//   const database = require("../database");
+//   const database = require("./database");
 //   await database.sync();
 // })();

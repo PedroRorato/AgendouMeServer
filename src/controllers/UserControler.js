@@ -1,18 +1,34 @@
+import { hash } from "bcryptjs";
+
 const User = require("../models/User");
 
 module.exports = {
   async index(request, response) {
     const users = await User.findAll();
 
+    console.log("User Info: ", request.userInfo);
+
     return response.json(users);
   },
 
   async store(request, response) {
-    const { name, email } = request.body;
+    const { name, email, password, tipo } = request.body;
+
+    const hashedPassword = await hash(password, 8);
 
     try {
-      const user = await User.create({ name, email });
-      return response.json(user);
+      const user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        tipo,
+      });
+
+      //Remove senha
+      const userInfo = user.toJSON();
+      delete userInfo.password;
+
+      return response.json(userInfo);
     } catch (err) {
       return response.status(400).send({ error: err });
     }

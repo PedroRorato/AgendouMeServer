@@ -9,15 +9,6 @@ class User extends Model {
           autoIncrement: true,
           allowNull: false,
           primaryKey: true,
-          validate: {
-            notEmpty: {
-              msg: "Esse campo não pode ser vazio",
-            },
-            len: {
-              args: [2, 50],
-              msg: "Esse campo deve ter entre 2 e 50 caracteres",
-            },
-          },
         },
         name: {
           type: DataTypes.STRING,
@@ -49,6 +40,28 @@ class User extends Model {
               if (user) {
                 throw new Error("Esse email já está sendo usado!");
               }
+            },
+          },
+        },
+        password: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          validate: {
+            notEmpty: {
+              msg: "Esse campo não pode ser vazio",
+            },
+          },
+        },
+        tipo: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          validate: {
+            notEmpty: {
+              msg: "Esse campo não pode ser vazio",
+            },
+            len: {
+              args: [2, 30],
+              msg: "Esse campo deve ter entre 2 e 50 caracteres",
             },
           },
         },

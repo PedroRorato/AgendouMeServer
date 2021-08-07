@@ -1,25 +1,29 @@
 const express = require("express");
 const routes = express.Router();
 
-const UserController = require("./controllers/UserControler");
-// const TaskController = require('./controllers/TaskController');
+//Middlewares
+const verifyAuthentication = require("./middlewares/verifyAuthentication");
 
-// routes.get("/users", async (req, res) => {
-//   res.json({ teste: "teste" });
-// });
+//Controllers
+const AuthController = require("./controllers/AuthController");
+const UserController = require("./controllers/UserControler");
+
+// ROTAS //
+
+//Auth
+routes.post("/login", AuthController.login);
+// routes.get("/users/:user_id", AuthController.show);
+// routes.put("/users/:user_id", AuthController.update);
+// routes.delete("/users/:user_id", AuthController.destroy);
 
 //User
-routes.get("/users", UserController.index);
+routes.get("/users", verifyAuthentication, UserController.index);
 routes.post("/users", UserController.store);
 routes.get("/users/:user_id", UserController.show);
 routes.put("/users/:user_id", UserController.update);
 routes.delete("/users/:user_id", UserController.destroy);
 
-// //Tasks
-// routes.get("/tasks", TaskController.index);
-// routes.post("/tasks", TaskController.store);
-// routes.get("/tasks/:task_id", TaskController.show);
-// routes.put("/tasks/:task_id", TaskController.update);
-// routes.delete("/tasks/:task_id", TaskController.destroy);
-
 module.exports = routes;
+
+//Ex multiplos middlewares
+//routes.get("/users", [middleware.requireAuthentication, middleware.logger], UserController.index);

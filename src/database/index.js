@@ -1,21 +1,24 @@
-const Sequelize = require("sequelize");
-// const dbConfig = require("../config/database");
+import Sequelize from "sequelize";
 
-const User = require("../models/User");
-// const Task = require("../models/Task");
+//Configs
+import dbConfig from "../config/database";
 
-// const connection = new Sequelize(dbConfig);
+//Models
+import Agendamento from "../models/Agendamento";
+import Empresa from "../models/Empresa";
+import Servico from "../models/Servico";
+import User from "../models/User";
 
-//Banco, usuario, senha
-const connection = new Sequelize("postgres", "postgres", "12345", {
-  dialect: "postgres",
-  host: "localhost",
-  port: 5432,
-});
+const connection = new Sequelize(dbConfig);
 
+Agendamento.init(connection);
+Empresa.init(connection);
+Servico.init(connection);
 User.init(connection);
-// Task.init(connection);
 
-// User.associate(connection.models);
+Agendamento.associate(connection.models);
+Empresa.associate(connection.models);
+Servico.associate(connection.models);
+User.associate(connection.models);
 
 module.exports = connection;

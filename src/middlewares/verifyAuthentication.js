@@ -7,7 +7,9 @@ const verifyAuthentication = (request, response, next) => {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    return response.json({ error: "Usuário não autenticado! No Header!" });
+    return response
+      .status(403)
+      .json({ error: "Usuário não autenticado! No Header!" });
   }
 
   //Obter token
@@ -28,7 +30,9 @@ const verifyAuthentication = (request, response, next) => {
     return next();
   } catch (err) {
     console.log(err);
-    return response.json({ error: "Usuário não autenticado! Token Inválido!" });
+    return response
+      .status(403)
+      .json({ error: "Usuário não autenticado! Token Inválido!" });
   }
 };
 

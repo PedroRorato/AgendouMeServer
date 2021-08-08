@@ -12,9 +12,7 @@ const UserController = require("./controllers/UserControler");
 
 //Auth
 routes.post("/login", AuthController.login);
-// routes.get("/users/:user_id", AuthController.show);
-// routes.put("/users/:user_id", AuthController.update);
-// routes.delete("/users/:user_id", AuthController.destroy);
+routes.post("/register", AuthController.register);
 
 //User
 routes.get("/users", verifyAuthentication, UserController.index);

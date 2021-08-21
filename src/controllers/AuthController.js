@@ -23,30 +23,28 @@ module.exports = {
     if (!user) {
       return response.json({ error: "Email ou senha incorretos!" });
     }
-    const userInfo = user.toJSON();
-    const { name, tipo, isAdmin } = userInfo;
+    const sessionData = user.toJSON();
+    const { name, tipo, isAdmin } = sessionData;
 
     //Testar password
-    const passwordMatched = await compare(password, userInfo.password);
+    const passwordMatched = await compare(password, sessionData.password);
     if (!passwordMatched) {
       return response.json({ error: "Email ou senha incorretos!" });
     }
 
     //Remove Password
-    delete userInfo.password;
-    delete userInfo.createdAt;
-    delete userInfo.updatedAt;
-
-    //Se for tipo == funcionario, carrega dados da empresa
+    delete sessionData.password;
+    delete sessionData.createdAt;
+    delete sessionData.updatedAt;
 
     //Configura JWT
     const { secret, expiresIn } = authConfig.jwt;
-    const token = sign({ name, tipo, email: userInfo.email, isAdmin }, secret, {
-      subject: userInfo.id.toString(),
+    const token = sign({ sessionData }, secret, {
+      subject: sessionData.id.toString(),
       expiresIn,
     });
 
-    return response.json({ token, userInfo });
+    return response.json({ token, sessionData });
   },
 
   async register(request, response) {

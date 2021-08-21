@@ -6,13 +6,13 @@ module.exports = {
   async index(request, response) {
     const users = await User.findAll();
 
-    console.log("User Info: ", request.userInfo);
-
     return response.json(users);
   },
 
   async store(request, response) {
-    const { nome, sobrenome, email, password, tipo } = request.body;
+    const { empresaId } = request.session;
+    console.log(request.body);
+    const { nome, sobrenome, email, password } = request.body;
 
     const hashedPassword = await hash(password, 8);
 
@@ -22,7 +22,8 @@ module.exports = {
         sobrenome,
         email,
         password: hashedPassword,
-        tipo,
+        tipo: "funcionario",
+        empresaId,
       });
 
       //Remove senha

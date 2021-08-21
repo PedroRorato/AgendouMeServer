@@ -7,32 +7,29 @@ const verifyAuthentication = (request, response, next) => {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    return response
-      .status(403)
-      .json({ error: "Usuário não autenticado! No Header!" });
+    return response.json({ error: "Usuário não autenticado! No Header!" });
   }
 
   //Obter token
   const [, token] = authHeader.split(" ");
 
-  console.log("Token: ", token);
-
   try {
     //Testa o token
     const decoded = verify(token, authConfig.jwt.secret);
 
-    console.log(decoded.sub);
+    const { id, empresaId, isAdmin, tipo } = decoded.sessionData;
 
-    request.userInfo = {
-      id: decoded.sub,
+    request.session = {
+      id,
+      empresaId,
+      isAdmin,
+      tipo,
     };
 
     return next();
   } catch (err) {
     console.log(err);
-    return response
-      .status(403)
-      .json({ error: "Usuário não autenticado! Token Inválido!" });
+    return response.json({ error: "Usuário não autenticado! Token Inválido!" });
   }
 };
 

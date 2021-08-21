@@ -10,6 +10,7 @@ const ContaController = require("./controllers/ContaController");
 const EmpresaController = require("./controllers/EmpresaController");
 const FuncionarioController = require("./controllers/FuncionarioController");
 const HorariosController = require("./controllers/HorariosController");
+const ServicoController = require("./controllers/ServicoController");
 const UserController = require("./controllers/UserControler");
 
 // ROTAS //
@@ -47,11 +48,31 @@ routes.put(
 );
 
 //Servicos
-routes.get("/dashboard/servicos", verifyAuthentication, UserController.index);
-routes.post("/dashboard/servicos", UserController.store);
-routes.get("/dashboard/servicos/:user_id", UserController.show);
-routes.put("/dashboard/servicos/:user_id", UserController.update);
-routes.delete("/dashboard/servicos/:user_id", UserController.destroy);
+routes.get(
+  "/dashboard/servicos",
+  verifyAuthentication,
+  ServicoController.index
+);
+routes.post(
+  "/dashboard/servicos",
+  verifyAuthentication,
+  ServicoController.store
+);
+routes.get(
+  "/dashboard/servicos/:servico_id",
+  verifyAuthentication,
+  ServicoController.show
+);
+routes.put(
+  "/dashboard/servicos/:servico_id",
+  verifyAuthentication,
+  ServicoController.update
+);
+routes.delete(
+  "/dashboard/servicos/:servico_id",
+  verifyAuthentication,
+  ServicoController.destroy
+);
 
 //Funcionarios
 routes.get(

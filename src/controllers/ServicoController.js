@@ -1,50 +1,43 @@
 import { hash } from "bcryptjs";
 
-const User = require("../models/User");
+const Servico = require("../models/Servico");
 
 module.exports = {
   async index(request, response) {
     const { empresaId } = request.session;
-    const users = await User.findAll({
+    const servicos = await Servico.findAll({
       where: {
         empresaId,
       },
     });
 
-    return response.json(users);
+    return response.json(servicos);
   },
 
   async store(request, response) {
     const { empresaId } = request.session;
     console.log(request.body);
-    const { nome, sobrenome, email, password } = request.body;
-
-    const hashedPassword = await hash(password, 8);
+    const { nome, preco, duracao, description } = request.body;
 
     try {
-      const user = await User.create({
+      const servico = await Servico.create({
         nome,
-        sobrenome,
-        email,
-        password: hashedPassword,
-        tipo: "funcionario",
+        preco,
+        duracao,
+        description,
         empresaId,
       });
 
-      //Remove senha
-      const userInfo = user.toJSON();
-      delete userInfo.password;
-
-      return response.json(userInfo);
+      return response.json(servico);
     } catch (err) {
       return response.status(400).send({ error: err });
     }
   },
 
   async show(request, response) {
-    const { user_id } = request.params;
+    const { servico_id } = request.params;
 
-    const user = await User.findByPk(user_id);
+    const user = await Servico.findByPk(servico_id);
 
     if (!user) {
       return response.status(404).json({ error: "User not found" });
@@ -54,10 +47,10 @@ module.exports = {
   },
 
   async update(request, response) {
-    const { user_id } = request.params;
+    const { servico_id } = request.params;
     const { nome, email } = request.body;
 
-    const user = await User.findByPk(user_id);
+    const user = await Servico.findByPk(servico_id);
 
     if (!user) {
       return response.status(404).json({ error: "User not found" });
@@ -72,9 +65,9 @@ module.exports = {
   },
 
   async destroy(request, response) {
-    const { user_id } = request.params;
+    const { servico_id } = request.params;
 
-    const user = await User.findByPk(user_id);
+    const user = await Servico.findByPk(servico_id);
 
     if (!user) {
       return response.status(404).json({ error: "User not found" });

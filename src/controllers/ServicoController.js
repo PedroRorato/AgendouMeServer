@@ -16,7 +16,7 @@ module.exports = {
 
   async store(request, response) {
     const { empresaId } = request.session;
-    console.log(request.body);
+
     const { nome, preco, duracao, description } = request.body;
 
     try {
@@ -37,44 +37,46 @@ module.exports = {
   async show(request, response) {
     const { servico_id } = request.params;
 
-    const user = await Servico.findByPk(servico_id);
+    const servico = await Servico.findByPk(servico_id);
 
-    if (!user) {
-      return response.status(404).json({ error: "User not found" });
+    if (!servico) {
+      return response.status(404).json({ error: "Serviço não encontrado" });
     }
 
-    return response.json(user);
+    return response.json(servico);
   },
 
   async update(request, response) {
     const { servico_id } = request.params;
-    const { nome, email } = request.body;
+    const { nome, preco, duracao, descricao } = request.body;
 
-    const user = await Servico.findByPk(servico_id);
+    const servico = await Servico.findByPk(servico_id);
 
-    if (!user) {
-      return response.status(404).json({ error: "User not found" });
+    if (!servico) {
+      return response.status(404).json({ error: "Serviço não encontrado" });
     }
 
-    user.nome = nome;
-    user.email = email;
+    servico.nome = nome;
+    servico.preco = preco;
+    servico.duracao = duracao;
+    servico.descricao = descricao;
 
-    await user.save();
+    await servico.save();
 
-    return response.json(user);
+    return response.json(servico);
   },
 
   async destroy(request, response) {
     const { servico_id } = request.params;
 
-    const user = await Servico.findByPk(servico_id);
+    const servico = await Servico.findByPk(servico_id);
 
-    if (!user) {
-      return response.status(404).json({ error: "User not found" });
+    if (!servico) {
+      return response.status(404).json({ error: "Serviço não encontrado" });
     }
 
-    await user.destroy();
+    await servico.destroy();
 
-    return response.json({ message: "User successfully deleted!" });
+    return response.json({ message: "Serviço excluído com sucesso!" });
   },
 };

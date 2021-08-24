@@ -18,7 +18,6 @@ module.exports = {
   async update(request, response) {
     const session = request.session;
 
-    console.log("foi");
     const { horarios } = request.body;
     const user = await User.findByPk(session.id);
     if (!user) {

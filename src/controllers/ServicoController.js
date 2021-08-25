@@ -17,7 +17,8 @@ module.exports = {
   async store(request, response) {
     const { empresaId } = request.session;
 
-    const { nome, preco, duracao, description } = request.body;
+    const { nome, preco, duracao, description, funcionarios } = request.body;
+    console.log("funcionarios: ", funcionarios);
 
     try {
       const servico = await Servico.create({

@@ -9,7 +9,7 @@ module.exports = {
       where: {
         empresaId,
       },
-      attributes: ["id", "nome", "email"],
+      attributes: ["id", "nome", "sobrenome", "email"],
     });
 
     return response.json(users);

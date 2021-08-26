@@ -35,10 +35,6 @@ class Empresa extends Model {
           type: DataTypes.STRING,
           allowNull: true,
         },
-        horarios: {
-          type: DataTypes.JSON,
-          allowNull: true,
-        },
       },
       {
         sequelize: connection,

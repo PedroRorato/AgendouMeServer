@@ -99,6 +99,11 @@ class User extends Model {
 
   static associate(models) {
     this.belongsTo(models.Empresa, { foreignKey: "empresaId", as: "empresa" });
+    this.belongsToMany(models.Servico, {
+      through: "servicosfuncionarios",
+      as: "servicos",
+      foreignKey: "funcionarioid",
+    });
   }
 }
 

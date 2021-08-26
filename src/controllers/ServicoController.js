@@ -49,7 +49,7 @@ module.exports = {
 
   async update(request, response) {
     const { servico_id } = request.params;
-    const { nome, preco, duracao, descricao } = request.body;
+    const { nome, preco, duracao, descricao, funcionarios } = request.body;
 
     const servico = await Servico.findByPk(servico_id);
 
@@ -61,6 +61,7 @@ module.exports = {
     servico.preco = preco;
     servico.duracao = duracao;
     servico.descricao = descricao;
+    servico.funcionarios = funcionarios;
 
     await servico.save();
 

@@ -31,10 +31,6 @@ class Agendamento extends Model {
           type: DataTypes.TEXT,
           allowNull: true,
         },
-        horarios: {
-          type: DataTypes.JSON,
-          allowNull: true,
-        },
       },
       {
         sequelize: connection,

@@ -62,6 +62,11 @@ class Servico extends Model {
 
   static associate(models) {
     this.belongsTo(models.Empresa, { foreignKey: "empresaId", as: "empresa" });
+    this.belongsToMany(models.User, {
+      through: "servicosfuncionarios",
+      as: "funcionario",
+      foreignKey: "servicoid",
+    });
   }
 }
 

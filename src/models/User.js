@@ -90,6 +90,10 @@ class User extends Model {
           type: DataTypes.JSON,
           allowNull: true,
         },
+        favoritos: {
+          type: DataTypes.JSON,
+          allowNull: true,
+        },
       },
       {
         sequelize: connection,

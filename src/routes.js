@@ -4,6 +4,8 @@ const routes = express.Router();
 //Middlewares
 const verifyAuthentication = require("./middlewares/verifyAuthentication");
 
+const CidadeController = require("./controllers/CidadeController");
+
 //Controllers
 const AuthController = require("./controllers/AuthController");
 const ContaController = require("./controllers/ContaController");
@@ -14,6 +16,9 @@ const ServicoController = require("./controllers/ServicoController");
 const UserController = require("./controllers/UserControler");
 
 // ROTAS //
+//Conta
+routes.get("/cidades", CidadeController.index);
+routes.post("/cidades", CidadeController.store);
 
 //Auth
 routes.post("/login", AuthController.login);

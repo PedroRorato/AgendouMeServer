@@ -10,26 +10,27 @@ class Agendamento extends Model {
           allowNull: false,
           primaryKey: true,
         },
-        dia: {
-          type: DataTypes.STRING,
+        inicio: {
+          type: DataTypes.DATE,
           allowNull: false,
           validate: {
             notEmpty: {
               msg: "Esse campo não pode ser vazio",
             },
-            len: {
-              args: [2, 50],
-              msg: "Esse campo deve ter entre 2 e 50 caracteres",
+          },
+        },
+        fim: {
+          type: DataTypes.DATE,
+          allowNull: false,
+          validate: {
+            notEmpty: {
+              msg: "Esse campo não pode ser vazio",
             },
           },
         },
-        horario: {
-          type: DataTypes.STRING,
+        info: {
+          type: DataTypes.JSON,
           allowNull: false,
-        },
-        descricao: {
-          type: DataTypes.TEXT,
-          allowNull: true,
         },
       },
       {
@@ -40,6 +41,7 @@ class Agendamento extends Model {
 
   static associate(models) {
     this.belongsTo(models.Empresa, { foreignKey: "empresaId", as: "empresa" });
+    this.belongsTo(models.Servico, { foreignKey: "servicoId", as: "servico" });
     this.belongsTo(models.User, { foreignKey: "clienteId", as: "cliente" });
     this.belongsTo(models.User, {
       foreignKey: "funcionarioId",

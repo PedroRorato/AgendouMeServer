@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 
-class Empresa extends Model {
+class Cidade extends Model {
   static init(connection) {
     super.init(
       {
@@ -23,18 +23,6 @@ class Empresa extends Model {
             },
           },
         },
-        endereco: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        descricao: {
-          type: DataTypes.TEXT,
-          allowNull: true,
-        },
-        foto: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
       },
       {
         sequelize: connection,
@@ -43,9 +31,8 @@ class Empresa extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.User, { foreignKey: "empresaId", as: "funcionarios" });
-    this.belongsTo(models.Cidade, { foreignKey: "cidadeId", as: "cidade" });
+    this.hasMany(models.Empresa, { foreignKey: "cidadeId", as: "empresas" });
   }
 }
 
-module.exports = Empresa;
+module.exports = Cidade;

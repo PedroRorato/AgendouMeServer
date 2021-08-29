@@ -8,6 +8,8 @@ const CidadeController = require("./controllers/CidadeController");
 
 //Controllers
 const AuthController = require("./controllers/AuthController");
+
+//Dashboard
 const ContaController = require("./controllers/ContaController");
 const EmpresaController = require("./controllers/EmpresaController");
 const FuncionarioController = require("./controllers/FuncionarioController");
@@ -16,13 +18,27 @@ const ServicoController = require("./controllers/ServicoController");
 const UserController = require("./controllers/UserControler");
 
 // ROTAS //
-//Conta
-routes.get("/cidades", CidadeController.index);
-routes.post("/cidades", CidadeController.store);
+
+//
+// Register
+// Login
+// ListaCidades
+// ListagemEmpresa
+// PagEmpresa
+// PagFuncionarios
+// PagAgenda
+// Favoritos
+// AgendamentosFuturos
+// Perfil
+// TrocarSenha
 
 //Auth
 routes.post("/login", AuthController.login);
 routes.post("/register", AuthController.register);
+
+//AUXILIARES
+routes.get("/cidades", CidadeController.index);
+routes.post("/cidades", CidadeController.store);
 
 //Conta
 routes.get("/dashboard/conta", verifyAuthentication, ContaController.show);

@@ -44,6 +44,7 @@ class Empresa extends Model {
 
   static associate(models) {
     this.hasMany(models.User, { foreignKey: "empresaId", as: "funcionarios" });
+    this.hasMany(models.Servico, { foreignKey: "empresaId", as: "servicos" });
     this.belongsTo(models.Cidade, { foreignKey: "cidadeId", as: "cidade" });
   }
 }

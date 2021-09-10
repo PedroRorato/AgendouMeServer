@@ -4,21 +4,13 @@ const User = require("../models/User");
 
 module.exports = {
   async index(request, response) {
-    const { empresaId } = request.session;
-    const users = await User.findAll({
-      where: {
-        empresaId,
-      },
-      attributes: ["id", "nome", "sobrenome", "email"],
-    });
+    const users = await User.findAll();
 
     return response.json(users);
   },
 
   async store(request, response) {
-    const { empresaId } = request.session;
-    console.log(request.body);
-    const { nome, sobrenome, email, password } = request.body;
+    const { nome, sobrenome, email, password, empresaId } = request.body;
 
     const hashedPassword = await hash(password, 8);
 

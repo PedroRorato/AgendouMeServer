@@ -6,10 +6,12 @@ const verifyAuthentication = require("./middlewares/verifyAuthentication");
 
 const CidadeController = require("./controllers/CidadeController");
 
-//Controllers
+//Controllers Aplicativo
 const AuthController = require("./controllers/AuthController");
+const EmpresasController = require("./controllers/Cliente/EmpresasController");
+// const ServicosController = require("./controllers/Cliente/ServicosController");
 
-//Dashboard
+//Dashboard: Controllers de Apoio
 const ContaController = require("./controllers/ContaController");
 const EmpresaController = require("./controllers/EmpresaController");
 const FuncionarioController = require("./controllers/FuncionarioController");
@@ -21,13 +23,18 @@ const UserController = require("./controllers/UserControler");
 
 //
 // Register
-// Login
 // ListaCidades
-// ListagemEmpresa
+//Empresa
+routes.get("/empresas", EmpresasController.index);
+routes.get("/empresas/:empresa_id", EmpresasController.show);
+// routes.get("/servicos", EmpresasController.index);
+
+// Favoritos
+
 // PagEmpresa
 // PagFuncionarios
 // PagAgenda
-// Favoritos
+
 // AgendamentosFuturos
 // Perfil
 // TrocarSenha
@@ -69,56 +76,19 @@ routes.put(
 );
 
 //Servicos
-routes.get(
-  "/dashboard/servicos",
-  verifyAuthentication,
-  ServicoController.index
-);
-routes.post(
-  "/dashboard/servicos",
-  verifyAuthentication,
-  ServicoController.store
-);
-routes.get(
-  "/dashboard/servicos/:servico_id",
-  verifyAuthentication,
-  ServicoController.show
-);
-routes.put(
-  "/dashboard/servicos/:servico_id",
-  verifyAuthentication,
-  ServicoController.update
-);
-routes.delete(
-  "/dashboard/servicos/:servico_id",
-  verifyAuthentication,
-  ServicoController.destroy
-);
+routes.get("/dashboard/servicos", ServicoController.index);
+routes.post("/dashboard/servicos", ServicoController.store);
+routes.get("/dashboard/servicos/:servico_id", ServicoController.show);
+routes.put("/dashboard/servicos/:servico_id", ServicoController.update);
+routes.delete("/dashboard/servicos/:servico_id", ServicoController.destroy);
 
 //Funcionarios
-routes.get(
-  "/dashboard/funcionarios",
-  verifyAuthentication,
-  FuncionarioController.index
-);
-routes.post(
-  "/dashboard/funcionarios",
-  verifyAuthentication,
-  FuncionarioController.store
-);
-routes.get(
-  "/dashboard/funcionarios/:user_id",
-  verifyAuthentication,
-  FuncionarioController.show
-);
-routes.put(
-  "/dashboard/funcionarios/:user_id",
-  verifyAuthentication,
-  FuncionarioController.update
-);
+routes.get("/dashboard/funcionarios", FuncionarioController.index);
+routes.post("/dashboard/funcionarios", FuncionarioController.store);
+routes.get("/dashboard/funcionarios/:user_id", FuncionarioController.show);
+routes.put("/dashboard/funcionarios/:user_id", FuncionarioController.update);
 routes.delete(
   "/dashboard/funcionarios/:user_id",
-  verifyAuthentication,
   FuncionarioController.destroy
 );
 

@@ -31,7 +31,7 @@ class Servico extends Model {
               msg: "Esse campo não pode ser vazio",
             },
             len: {
-              args: [3, 8],
+              args: [1, 8],
               msg: "Dados incorretos.",
             },
           },

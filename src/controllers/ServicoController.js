@@ -4,20 +4,14 @@ const Servico = require("../models/Servico");
 
 module.exports = {
   async index(request, response) {
-    const { empresaId } = request.session;
-    const servicos = await Servico.findAll({
-      where: {
-        empresaId,
-      },
-    });
+    const servicos = await Servico.findAll();
 
     return response.json(servicos);
   },
 
   async store(request, response) {
-    const { empresaId } = request.session;
-
-    const { nome, preco, duracao, description, funcionarios } = request.body;
+    const { nome, preco, duracao, descricao, funcionarios, empresaId } =
+      request.body;
     console.log("funcionarios: ", funcionarios);
 
     try {
@@ -25,7 +19,7 @@ module.exports = {
         nome,
         preco,
         duracao,
-        description,
+        descricao,
         empresaId,
       });
 

@@ -13,6 +13,8 @@ module.exports = {
   async login(request, response) {
     const { email, password } = request.body;
 
+    console.log(request.body);
+
     const user = await User.findOne({
       where: {
         email,
@@ -69,7 +71,7 @@ module.exports = {
     //Cadastra usuario
     const hashedPassword = await hash(password, 8);
     try {
-      await User.create({
+      const user = await User.create({
         nome,
         sobrenome,
         email,
@@ -79,9 +81,23 @@ module.exports = {
         empresaId,
       });
 
-      return response.json({ msg: "Usuario cadastrado com sucesso!" });
+      //Login
+      const sessionData = user.toJSON();
+      //Remove Password
+      delete sessionData.password;
+      delete sessionData.createdAt;
+      delete sessionData.updatedAt;
+
+      //Configura JWT
+      const { secret, expiresIn } = authConfig.jwt;
+      const token = sign({ sessionData }, secret, {
+        subject: sessionData.id.toString(),
+        expiresIn,
+      });
+
+      return response.json({ token, sessionData });
     } catch (err) {
-      return response.status(400).send({ error: err });
+      return response.send({ error: err });
     }
   },
 };

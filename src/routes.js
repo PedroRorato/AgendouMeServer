@@ -9,7 +9,8 @@ const CidadeController = require("./controllers/CidadeController");
 //Controllers Aplicativo
 const AuthController = require("./controllers/AuthController");
 const EmpresasController = require("./controllers/Cliente/EmpresasController");
-// const ServicosController = require("./controllers/Cliente/ServicosController");
+const AgendaController = require("./controllers/Cliente/AgendaController");
+const PerfilController = require("./controllers/Cliente/PerfilController");
 
 //Dashboard: Controllers de Apoio
 const ContaController = require("./controllers/ContaController");
@@ -17,7 +18,6 @@ const EmpresaController = require("./controllers/EmpresaController");
 const FuncionarioController = require("./controllers/FuncionarioController");
 const HorariosController = require("./controllers/HorariosController");
 const ServicoController = require("./controllers/ServicoController");
-const UserController = require("./controllers/UserControler");
 
 // ROTAS //
 
@@ -27,7 +27,9 @@ const UserController = require("./controllers/UserControler");
 //Empresa
 routes.get("/empresas", EmpresasController.index);
 routes.get("/empresas/:empresa_id", EmpresasController.show);
-// routes.get("/servicos", EmpresasController.index);
+routes.get("/horarios-disponiveis", AgendaController.horariosDisponiveis);
+routes.get("/agendamentos", AgendaController.agendamentos);
+routes.put("/perfil", verifyAuthentication, PerfilController.update);
 
 // Favoritos
 

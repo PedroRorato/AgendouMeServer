@@ -1,12 +1,9 @@
-import { hash } from "bcryptjs";
-
 const Empresa = require("../../models/Empresa");
-const Servico = require("../../models/Servico");
 
 module.exports = {
   async index(request, response) {
     const empresas = await Empresa.findAll({
-      attributes: ["id", "nome", "endereco"],
+      attributes: ["id", "nome", "endereco", "foto"],
     });
 
     return response.json(empresas);
@@ -16,13 +13,9 @@ module.exports = {
     const { empresa_id } = request.params;
 
     const empresa = await Empresa.findByPk(empresa_id, {
-      attributes: ["id", "nome", "endereco"],
+      attributes: ["id", "nome", "endereco", "foto"],
       include: "servicos",
     });
-
-    console.log(empresa.getServicos());
-
-    // empresas["servicos"] = servicos;
 
     return response.json(empresa);
   },
